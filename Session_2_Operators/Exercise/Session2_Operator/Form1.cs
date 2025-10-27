@@ -207,5 +207,120 @@ namespace Session2_Operator
 				}
 			}
 		}
+
+		private void btnClearMul_Click(object sender, EventArgs e)
+		{
+			txtMul1.Text = "";
+			txtMul2.Text = "";
+			txtAnswerMul.Text = "";
+		}
+
+		private void txtMul1_Leave(object sender, EventArgs e)
+		{
+			if (txtMul1.Text.Trim() != "")
+			{
+				int iAdd2;
+				if (int.TryParse(txtMul1.Text, out iAdd2))
+				{
+					//doNothing
+				}
+				else
+				{
+					MessageBox.Show("你輸入的資料不是數字喔");
+					txtMul1.Text = "";
+					txtMul1.Focus();
+				}
+			}
+		}
+
+		private void txtMul2_Leave(object sender, EventArgs e)
+		{
+			if (txtMul2.Text.Trim() != "")
+			{
+				int iAdd2;
+				if (int.TryParse(txtMul2.Text, out iAdd2))
+				{
+					//doNothing
+				}
+				else
+				{
+					MessageBox.Show("你輸入的資料不是數字喔");
+					txtMul2.Text = "";
+					txtMul2.Focus();
+				}
+			}
+		}
+
+		private void btnCalculateMul_Click(object sender, EventArgs e)
+		{
+			//使用Conver.ToInt強制轉換如輸入非數字會發生例外錯誤 故請使用TryCatch
+			try
+			{
+				txtAnswerMul.Text = (Convert.ToInt16(txtMul1.Text) * Convert.ToInt16(txtMul2.Text)).ToString();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				//Console.WriteLine("錯誤訊息：" + ex.Message);
+			}
+		}
+
+		private void btnClearDiv_Click(object sender, EventArgs e)
+		{
+			txtDiv1.Text = "";
+			txtDiv2.Text = "";
+			txtAnswerDiv.Text = "";
+		}
+
+		private void txtDiv1_Leave(object sender, EventArgs e)
+		{
+			if (txtDiv1.Text.Trim() != "")
+			{
+				int iAdd2;
+				if (int.TryParse(txtDiv1.Text, out iAdd2))
+				{
+					//doNothing
+				}
+				else
+				{
+					MessageBox.Show("你輸入的資料不是數字喔");
+					txtDiv1.Text = "";
+					txtDiv1.Focus();
+				}
+			}
+		}
+
+		private void txtDiv2_Leave(object sender, EventArgs e)
+		{
+			if (txtDiv2.Text.Trim() != "")
+			{
+				int iAdd2;
+				if (int.TryParse(txtDiv2.Text, out iAdd2))
+				{
+					//doNothing
+				}
+				else
+				{
+					MessageBox.Show("你輸入的資料不是數字喔");
+					txtDiv2.Text = "";
+					txtDiv2.Focus();
+				}
+			}
+		}
+
+		private void btnCalculateDiv_Click(object sender, EventArgs e)
+		{
+			//使用Conver.ToInt強制轉換如輸入非數字會發生例外錯誤 故請使用TryCatch
+			try
+			{
+				txtAnswerDiv.Text = (Convert.ToInt16(txtDiv1.Text) / Convert.ToInt16(txtDiv2.Text)).ToString();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+				//Console.WriteLine("錯誤訊息：" + ex.Message);
+			}
+		}
+
 	}
 }
