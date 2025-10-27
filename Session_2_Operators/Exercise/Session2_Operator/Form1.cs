@@ -310,6 +310,7 @@ namespace Session2_Operator
 
 		private void btnCalculateDiv_Click(object sender, EventArgs e)
 		{
+			
 			//使用Conver.ToInt強制轉換如輸入非數字會發生例外錯誤 故請使用TryCatch
 			try
 			{
