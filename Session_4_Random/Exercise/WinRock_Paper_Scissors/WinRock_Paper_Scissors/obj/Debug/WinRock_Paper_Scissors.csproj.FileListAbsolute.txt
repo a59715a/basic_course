@@ -19,3 +19,14 @@ C:\Users\user\Downloads\Session_4_Random\Session_4_Random\Exercise\WinRock_Paper
 C:\Users\user\Downloads\Session_4_Random\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.csproj.CoreCompileInputs.cache
 C:\Users\user\Downloads\Session_4_Random\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.exe
 C:\Users\user\Downloads\Session_4_Random\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.pdb
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\bin\Debug\WinRock_Paper_Scissors.exe.config
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\bin\Debug\WinRock_Paper_Scissors.exe
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\bin\Debug\WinRock_Paper_Scissors.pdb
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.csproj.AssemblyReference.cache
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.csproj.SuggestedBindingRedirects.cache
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.Form1.resources
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.Properties.Resources.resources
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.csproj.GenerateResource.cache
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.csproj.CoreCompileInputs.cache
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.exe
+F:\GitHub\basic_course\Session_4_Random\Exercise\WinRock_Paper_Scissors\WinRock_Paper_Scissors\obj\Debug\WinRock_Paper_Scissors.pdb
