@@ -32,10 +32,10 @@
 
 #### 欄位規劃
 
-| 欄位名稱       | 資料型別      | 說明             | 是否允許 NULL |
-| -------------- | ------------- | ---------------- | ------------- |
-| `chFactNo`   | `char(10)`  | 廠商代號（主鍵） | ❌ 否         |
-| `chFactName` | `char(100)` | 廠商名稱         | ✅ 是         |
+| 欄位名稱     | 資料型別    | 說明             | 是否允許 NULL |
+| ------------ | ----------- | ---------------- | ------------- |
+| `chFactNo`   | `char(10)`  | 廠商代號（主鍵） | ❌ 否          |
+| `chFactName` | `char(100)` | 廠商名稱         | ✅ 是          |
 
 #### 建立資料表
 
@@ -81,15 +81,15 @@ INSERT INTO FactoryTbl (chFactNo, chFactName) VALUES ('F005', '仁寶');
 
 #### 欄位規劃
 
-| 欄位名稱            | 資料型別      | 說明             | 是否允許 NULL |
-| ------------------- | ------------- | ---------------- | ------------- |
-| `chProdNo`        | `char(7)`   | 商品編號（主鍵） | ❌ 否         |
-| `chProdName`      | `char(100)` | 商品名稱         | ❌ 否         |
-| `chUnit`          | `char(4)`   | 單位             | ✅ 是         |
-| `rlStockQty`      | `real`      | 庫存數量         | ✅ 是         |
-| `rlInpPrice`      | `real`      | 進貨價格         | ✅ 是         |
-| `rlSellPrice`     | `real`      | 售價             | ✅ 是         |
-| `chCreatDateTime` | `char(11)`  | 建立日期時間     | ✅ 是         |
+| 欄位名稱          | 資料型別    | 說明             | 是否允許 NULL |
+| ----------------- | ----------- | ---------------- | ------------- |
+| `chProdNo`        | `char(7)`   | 商品編號（主鍵） | ❌ 否          |
+| `chProdName`      | `char(100)` | 商品名稱         | ❌ 否          |
+| `chUnit`          | `char(4)`   | 單位             | ✅ 是          |
+| `rlStockQty`      | `real`      | 庫存數量         | ✅ 是          |
+| `rlInpPrice`      | `real`      | 進貨價格         | ✅ 是          |
+| `rlSellPrice`     | `real`      | 售價             | ✅ 是          |
+| `chCreatDateTime` | `char(11)`  | 建立日期時間     | ✅ 是          |
 
 #### 建立資料表
 
@@ -131,11 +131,11 @@ INSERT INTO ProductTbl (chProdNo, chProdName, chUnit, rlStockQty, rlInpPrice, rl
 
 #### 欄位規劃
 
-| 欄位名稱          | 資料型別     | 說明                  | 是否允許 NULL |
-| ----------------- | ------------ | --------------------- | ------------- |
-| `chInpDateTime` | `char(13)` | 進貨日期時間（主鍵1） | ❌ 否         |
-| `chFactNo`      | `char(10)` | 廠商代號（主鍵2）     | ❌ 否         |
-| `rlInpTotAmt`   | `real`     | 進貨總金額            | ✅ 是         |
+| 欄位名稱        | 資料型別   | 說明                  | 是否允許 NULL |
+| --------------- | ---------- | --------------------- | ------------- |
+| `chInpDateTime` | `char(13)` | 進貨日期時間（主鍵1） | ❌ 否          |
+| `chFactNo`      | `char(10)` | 廠商代號（主鍵2）     | ❌ 否          |
+| `rlInpTotAmt`   | `real`     | 進貨總金額            | ✅ 是          |
 
 > 💡 **說明**：主鍵由 `chInpDateTime` 和 `chFactNo` 組成，表示同一時間同一廠商只能有一張進貨單。
 
@@ -168,14 +168,14 @@ GO
 
 #### 欄位規劃
 
-| 欄位名稱          | 資料型別     | 說明                  | 是否允許 NULL |
-| ----------------- | ------------ | --------------------- | ------------- |
-| `chInpDateTime` | `char(13)` | 進貨日期時間（主鍵1） | ❌ 否         |
-| `chFactNo`      | `char(10)` | 廠商代號（主鍵2）     | ❌ 否         |
-| `chProdNo`      | `char(7)`  | 商品編號（主鍵3）     | ❌ 否         |
-| `rlInpQty`      | `real`     | 進貨數量              | ✅ 是         |
-| `rlInpPrice`    | `real`     | 進貨單價              | ✅ 是         |
-| `rlInpAmt`      | `real`     | 進貨金額              | ✅ 是         |
+| 欄位名稱        | 資料型別   | 說明                  | 是否允許 NULL |
+| --------------- | ---------- | --------------------- | ------------- |
+| `chInpDateTime` | `char(13)` | 進貨日期時間（主鍵1） | ❌ 否          |
+| `chFactNo`      | `char(10)` | 廠商代號（主鍵2）     | ❌ 否          |
+| `chProdNo`      | `char(7)`  | 商品編號（主鍵3）     | ❌ 否          |
+| `rlInpQty`      | `real`     | 進貨數量              | ✅ 是          |
+| `rlInpPrice`    | `real`     | 進貨單價              | ✅ 是          |
+| `rlInpAmt`      | `real`     | 進貨金額              | ✅ 是          |
 
 > 💡 **說明**：主鍵由 `chInpDateTime`、`chFactNo` 和 `chProdNo` 組成，表示同一張進貨單中，同一商品只能出現一次。
 
@@ -292,8 +292,8 @@ DataGridView 是 Windows Forms 中用來顯示和編輯表格資料的控制項�
 
 在「屬性」視窗中，設定以下重要屬性：
 
-| 屬性名稱               | 設定值           | 說明                       |
-| ---------------------- | ---------------- | -------------------------- |
+| 屬性名稱             | 設定值         | 說明                       |
+| -------------------- | -------------- | -------------------------- |
 | `AllowUserToAddRows` | `False`        | 不允許使用者新增資料列     |
 | `ReadOnly`           | `True`         | 設定為唯讀（可依需求調整） |
 | `BackgroundColor`    | `LemonChiffon` | 設定背景顏色（可選）       |
@@ -682,13 +682,13 @@ private void btnSaveInpDgv_Click(object sender, EventArgs e)
 
 ### 🔑 Transaction 重點整理
 
-| 步驟                | 說明                        | 程式碼範例                                                     |
-| ------------------- | --------------------------- | -------------------------------------------------------------- |
+| 步驟                | 說明                      | 程式碼範例                                                   |
+| ------------------- | ------------------------- | ------------------------------------------------------------ |
 | 1. 開始交易         | 呼叫 `BeginTransaction()` | `SqlTransaction myTransaction = sqlConn.BeginTransaction();` |
-| 2. 設定 Transaction | 所有 SqlCommand 都要設定    | `sqlCmd.Transaction = myTransaction;`                        |
-| 3. 執行 SQL 指令    | 執行多個 SQL 指令           | `sqlCmd.ExecuteNonQuery();`                                  |
-| 4-1. 確認交易       | 所有操作成功後確認          | `myTransaction.Commit();`                                    |
-| 4-2. 回滾交易       | 發生錯誤時取消所有變更      | `myTransaction.Rollback();`                                  |
+| 2. 設定 Transaction | 所有 SqlCommand 都要設定  | `sqlCmd.Transaction = myTransaction;`                        |
+| 3. 執行 SQL 指令    | 執行多個 SQL 指令         | `sqlCmd.ExecuteNonQuery();`                                  |
+| 4-1. 確認交易       | 所有操作成功後確認        | `myTransaction.Commit();`                                    |
+| 4-2. 回滾交易       | 發生錯誤時取消所有變更    | `myTransaction.Rollback();`                                  |
 
 > ⚠️ **重要提醒**：
 >
@@ -1011,77 +1011,6 @@ private void btnClearInpDgv_Click(object sender, EventArgs e)
 
 ---
 
-
-## 🏠 課後作業
-
-### 📋 作業要求
-
-建置出貨表單（參考進貨系統的架構）。
-
-### 🎯 作業步驟
-
-1. **建立出貨相關資料表**
-
-   **OutHeadTbl（出貨單-頭）**
-
-   | 欄位名稱          | 資料型別     | 說明                  | 是否允許 NULL |
-   | ----------------- | ------------ | --------------------- | ------------- |
-   | `chOutDateTime` | `char(13)` | 出貨日期時間（主鍵1） | ❌ 否         |
-   | `chFactNo`      | `char(10)` | 廠商代號（主鍵2）     | ❌ 否         |
-   | `rlOutTotAmt`   | `real`     | 出貨總金額            | ✅ 是         |
-
-   **OutDetailTbl（出貨單-身）**
-
-   | 欄位名稱          | 資料型別     | 說明                  | 是否允許 NULL |
-   | ----------------- | ------------ | --------------------- | ------------- |
-   | `chOutDateTime` | `char(13)` | 出貨日期時間（主鍵1） | ❌ 否         |
-   | `chFactNo`      | `char(10)` | 廠商代號（主鍵2）     | ❌ 否         |
-   | `chProdNo`      | `char(7)`  | 商品編號（主鍵3）     | ❌ 否         |
-   | `rlOutQty`      | `real`     | 出貨數量              | ✅ 是         |
-   | `rlOutPrice`    | `real`     | 出貨單價              | ✅ 是         |
-   | `rlOutAmt`      | `real`     | 出貨金額              | ✅ 是         |
-2. **設計出貨系統介面**
-
-   - 參考進貨系統的介面設計
-   - 建立出貨系統表單
-   - 加入 DataGridView 控制項
-   - 設定 DataGridView 欄位（產品代號、產品名稱、出貨單價、出貨數量、金額、產品單位）
-3. **實作出貨單的 DataGridView 操作**
-
-   - 廠商代號查詢功能
-   - 商品代號查詢功能
-   - 金額自動計算功能
-   - 新增資料到 DataGridView 功能
-   - 清螢幕功能
-   - 單張清除功能
-4. **實作出貨單儲存功能（含 SqlTransaction）**
-
-   - 使用 Transaction 確保資料一致性
-   - 新增出貨單頭（OutHeadTbl）
-   - 新增出貨單身（OutDetailTbl）
-   - 更新商品庫存（ProductTbl）- 減少庫存數量
-   - 處理錯誤情況（Rollback）
-
-### 💡 提示
-
-- 出貨系統的架構與進貨系統類似，可以參考進貨系統的程式碼
-- 出貨時，庫存數量應該**減少**（進貨時是增加）
-- 出貨單價通常使用商品的售價（`rlSellPrice`）
-- 記得檢查庫存數量是否足夠（出貨數量不能超過庫存數量）
-
-### ✅ 驗證清單
-
-完成作業後，請確認：
-
-- [ ] 出貨相關資料表已建立（OutHeadTbl、OutDetailTbl）
-- [ ] 出貨系統介面設計完整
-- [ ] 出貨單的 DataGridView 操作功能正常
-- [ ] 出貨單儲存功能使用 SqlTransaction
-- [ ] 出貨時庫存數量正確減少
-- [ ] 可以成功新增至少 2 張出貨單
-- [ ] 所有功能都能正常運作
-
----
 
 ## 🎓 本週重點回顧
 
