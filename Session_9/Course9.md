@@ -406,6 +406,7 @@ txtOutQty_Leave 請同學練習實作
                     strSQL = "select rlStockQty from ProductTbl where chProdNo = '" + txtOutProdNo.Text.Trim() + "' ";
                     using (SqlCommand sqlCmd = new SqlCommand(strSQL, mySqlConn))
                     {
+                        // ExecuteScalar() 是把第一列第一欄的資料抓出來
                         decimal currentStock = Convert.ToDecimal(sqlCmd.ExecuteScalar());
                         decimal outQty = decimal.Parse(txtOutQty.Text.Trim());
 
@@ -421,7 +422,7 @@ txtOutQty_Leave 請同學練習實作
                         }
                     }
 
-                    DgvOut.Rows.Add(txtOutProdNo.Text.Trim(), txtOutProdName.Text.Trim(), txtOutPrice.Text.Trim(), txtOutQty.Text.Trim(), lblOutAmt.Text.Trim(), txtOutUnit.Text.Trim());
+                    //此處請同學實作新增資料至DataGridView
                     if (txtOutDateTime.Text.Trim() == "")
                     {
                         string tmpDate = GetDateToDate13();
@@ -510,89 +511,7 @@ private void btnSaveOutDgv_Click(object sender, EventArgs e)
                 MessageBox.Show("螢幕上尚未未完成的輸入資料" + "\r\n\r\n" + "按任一鍵離開!", "敬請確認");
                 return;
             }
-            // 建立資料庫連線
-            using (SqlConnection mySqlConn = new SqlConnection(strConnString))
-            {
-                try
-                {
-                    mySqlConn.Open();
-
-                    // 開始交易
-                    SqlTransaction myTransaction = mySqlConn.BeginTransaction();
-                    // 嘗試執行
-                    try
-                    {
-                        // 準備出貨日期時間字串 民國年月日時分秒：yyyMMddhhmmss
-                        string outDateTime = txtOutDateTime.Text.Substring(0, 7) + txtOutDateTime.Text.Substring(8, 6);
-                        string factNo = txtOutFactNo.Text.Trim();
-                        decimal mOutTotAmt = 0;
-
-                        // 在迴圈外建立共用的 SqlCommand 物件
-                        SqlCommand sqlCmd = new SqlCommand();
-                        sqlCmd.Connection = mySqlConn;
-                        // 設定 SqlCommand 的 Transaction
-                        sqlCmd.Transaction = myTransaction;
-
-                        // 迴圈處理 DataGridView 中的每一筆資料
-                        for (int i = 0; i < DgvOut.Rows.Count; i++)
-                        {
-                            // 取得 DataGridView 中的資料
-                            string prodNo = DgvOut.Rows[i].Cells["OutProdNo"].Value.ToString().Trim();
-                            string outPrice = DgvOut.Rows[i].Cells["OutPrice"].Value.ToString().Trim();
-                            string outQty = DgvOut.Rows[i].Cells["OutQty"].Value.ToString().Trim();
-                            string outAmt = DgvOut.Rows[i].Cells["OutAmt"].Value.ToString().Trim();
-
-                            // 累加總金額
-                            mOutTotAmt = mOutTotAmt + decimal.Parse(outAmt);
-
-                            // 1. 新增出貨單身（OutputDetailTbl）
-                            string strSQL = "INSERT INTO OutputDetailTbl (chOutpDateTime, chFactNo, chProdNo, rlOutpPrice, rlQty, rlOutpAmt) " +
-                                           "VALUES ('" + outDateTime + "', '" + factNo + "', '" + prodNo + "', " +
-                                           outPrice + ", " + outQty + ", " + outAmt + ")";
-
-                            sqlCmd.CommandText = strSQL;
-                            sqlCmd.ExecuteNonQuery();
-
-                            // 2. 更新商品庫存主檔的庫存數量（減少庫存）
-                            strSQL = "UPDATE ProductTbl SET rlStockQty = rlStockQty - " + outQty +
-                                     " WHERE chProdNo = '" + prodNo + "'";
-
-                            sqlCmd.CommandText = strSQL;
-                            sqlCmd.ExecuteNonQuery();
-                        }
-
-                        // 3. 新增出貨單頭（OutputHeadTbl）
-                        string insertHeadSQL = "INSERT INTO OutputHeadTbl (chOutpDateTime, chFactNo, rlOutpTotAmt) " +
-                                              "VALUES ('" + outDateTime + "', '" + factNo + "', " + Convert.ToString(mOutTotAmt) + ")";
-
-                        sqlCmd.CommandText = insertHeadSQL;
-                        sqlCmd.ExecuteNonQuery();
-
-                        // 確認交易
-                        myTransaction.Commit();
-                        // 顯示訊息
-                        MessageBox.Show("按任一鍵繼續!", "匯入成功!!");
-                        // 清除按鈕按下事件
-                        btnOutClear_Click(null, null);
-                        // 清除DataGridView中的資料
-                        DgvOut.Rows.Clear();
-                        // 清除出貨日期時間
-                        txtOutDateTime.Text = "";
-                    }
-                    catch (Exception ex)
-                    {
-                        // 回滾交易
-                        myTransaction.Rollback();
-                        // 顯示例外錯誤訊息
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //外層的Exception 只為抓取connection Error; 其他的Error幾乎都在內層Exception的範圍內
-                    MessageBox.Show(ex.Message);
-                }
-            }
+			// 此處請同學實作資料存取  參考進貨並按照上述流程
         }
 ```
 
