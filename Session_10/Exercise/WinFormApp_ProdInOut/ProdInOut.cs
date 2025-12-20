@@ -497,7 +497,62 @@ namespace WinFormApp_ProdInOut
 
         private void btnInpDetailQuery_Click(object sender, EventArgs e)
         {
-            
+            // 步驟一：驗證日期格式
+            if (txtInpDetailSDate.Text.Length != 7 || txtInpDetailEDate.Text.Length != 7)
+            {
+                MessageBox.Show("起迄日期需為7碼日期, eg.1141201" + "\r\n\r\n" + "按任一鍵離開!", "日期錯誤!!!");
+                txtInpDetailSDate.Focus();
+                return;
+            }
+
+            // 步驟二：設定游標為等待狀態，並初始化總金額標籤
+            this.Cursor = Cursors.WaitCursor;
+            lblInpDetailTotAmt.Text = "";
+            lblInpDetailTotAmt.Visible = false;
+            try
+            {
+                using (SqlConnection mySqlConn = new SqlConnection(strConnString))
+                {
+                    mySqlConn.Open();
+
+                    // ---------------------------------------------
+                    // 請學生實作：撰寫 SQL 查詢語句
+                    // ---------------------------------------------
+                    string strSQL = @"請學生實作";
+
+                    using (SqlCommand sqlCmd = new SqlCommand(strSQL, mySqlConn))
+                    {
+                        // 執行查詢並載入 DataTable
+                        DataTable dt = new DataTable();
+                        dt.Load(sqlCmd.ExecuteReader());
+
+                        // 步驟五：檢查是否有查詢結果
+                        if (dt.Rows.Count == 0)
+                        {
+                            MessageBox.Show("查詢區間內無進貨資料。" + "\r\n\r\n" + "按任一鍵離開!", "查無資料，敬請確認！！！");
+                            this.Cursor = Cursors.Default;
+                            return;
+                        }
+
+                        // ---------------------------------------------
+                        // 請學生實作：將 DataTable 綁定到 DataGridView
+                        // ---------------------------------------------
+
+
+
+
+                        // ---------------------------------------------
+                        // 請學生實作：計算DataGridView總金額，並顯示在lblInpDetailTotAmt標籤中
+                        // ---------------------------------------------
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                this.Cursor = Cursors.Default;
+            }
+            this.Cursor = Cursors.Default;
         }
 
 
@@ -558,7 +613,34 @@ namespace WinFormApp_ProdInOut
 
         private void txtOutProdNo_Leave(object sender, EventArgs e)
         {
-            
+            if (txtOutProdNo.Text.Trim() == "") return;
+            try
+            {
+                using (SqlConnection mySqlConn = new SqlConnection(strConnString))
+                {
+                    mySqlConn.Open();
+                    string strSQL = "select * from ProductTbl where chProdNo = '" + txtOutProdNo.Text.Trim() + "' ";
+                    using (SqlCommand sqlCmd = new SqlCommand(strSQL, mySqlConn))
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Load(sqlCmd.ExecuteReader());
+                        if (dt.Rows.Count == 0)
+                        {
+                            MessageBox.Show("查無此產品代號資料" + "\r\n\r\n" + "按任一鍵離開!", "敬請確認");
+                            txtOutProdNo.Focus();
+                            return;
+                        }
+                        txtOutProdName.Text = dt.Rows[0]["chProdName"].ToString().Trim();
+                        if (txtOutPrice.Text.Trim() == "") txtOutPrice.Text = dt.Rows[0]["rlSellPrice"].ToString().Trim();
+                        if (txtOutQty.Text.Trim() == "") txtOutQty.Text = "0";
+                        if (txtOutUnit.Text.Trim() == "") txtOutUnit.Text = dt.Rows[0]["chUnit"].ToString().Trim();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void txtOutPrice_Leave(object sender, EventArgs e)
@@ -585,7 +667,24 @@ namespace WinFormApp_ProdInOut
 
         private void txtOutQty_Leave(object sender, EventArgs e)
         {
-            
+            if (txtOutQty.Text.Trim() == "" || txtOutQty.Text.Trim() == "0")
+            {
+                lblOutAmt.Text = "";
+                return;
+            }
+            decimal mDeciNumber = 0;
+            bool mDeciFlag = decimal.TryParse(txtOutQty.Text.Trim(), out mDeciNumber);
+            if (mDeciFlag == false)
+            {
+                MessageBox.Show("出貨數量只可為數字【 0-9 . - 】等" + "\r\n\r\n" + "按任一鍵離開!", "敬請確認");
+                lblOutAmt.Text = "";
+                txtOutQty.Focus();
+                return;
+            }
+            if (txtOutPrice.Text.Trim() != "" && txtOutPrice.Text.Trim() != "0")
+            {
+                lblOutAmt.Text = Convert.ToString(mDeciNumber * decimal.Parse(txtOutPrice.Text.Trim()));
+            }
         }
 
         // 確認按鈕按下事件（出貨系統）
@@ -711,14 +810,112 @@ namespace WinFormApp_ProdInOut
 
         private void btnClearOutDgv_Click(object sender, EventArgs e)
         {
+            if (DgvOut.RowCount == 0) return;
+
+            DialogResult myResult = MessageBox.Show("確定要將底下單張資料都清除?", "敬請再次確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (myResult == DialogResult.Yes)
+            {
+                DgvOut.Rows.Clear();
+                txtOutDateTime.Text = "";
+                MessageBox.Show("按任一鍵離開!", "清除成功");
+            }
 
         }
 
         private void btnSaveOutDgv_Click(object sender, EventArgs e)
         {
+            // 如果DataGridView中沒有資料，則不執行
+            if (DgvOut.Rows.Count == 0) return;
 
-            
-           
+            // 如果產品代號、單價、出貨數量為空，則顯示錯誤訊息
+            if (txtOutProdNo.Text.Trim() != "" || txtOutPrice.Text.Trim() != "" || txtOutQty.Text.Trim() != "")
+            {
+                MessageBox.Show("螢幕上尚未未完成的輸入資料" + "\r\n\r\n" + "按任一鍵離開!", "敬請確認");
+                return;
+            }
+            // 建立資料庫連線
+            using (SqlConnection mySqlConn = new SqlConnection(strConnString))
+            {
+                try
+                {
+                    mySqlConn.Open();
+
+                    // 開始交易
+                    SqlTransaction myTransaction = mySqlConn.BeginTransaction();
+                    // 嘗試執行
+                    try
+                    {
+                        // 準備出貨日期時間字串 民國年月日時分秒：yyyMMddhhmmss
+                        string outDateTime = txtOutDateTime.Text.Substring(0, 7) + txtOutDateTime.Text.Substring(8, 6);
+                        string factNo = txtOutFactNo.Text.Trim();
+                        decimal mOutTotAmt = 0;
+
+                        // 在迴圈外建立共用的 SqlCommand 物件
+                        SqlCommand sqlCmd = new SqlCommand();
+                        sqlCmd.Connection = mySqlConn;
+                        // 設定 SqlCommand 的 Transaction
+                        sqlCmd.Transaction = myTransaction;
+
+                        // 迴圈處理 DataGridView 中的每一筆資料
+                        for (int i = 0; i < DgvOut.Rows.Count; i++)
+                        {
+                            // 取得 DataGridView 中的資料
+                            string prodNo = DgvOut.Rows[i].Cells["OutProdNo"].Value.ToString().Trim();
+                            string outPrice = DgvOut.Rows[i].Cells["OutPrice"].Value.ToString().Trim();
+                            string outQty = DgvOut.Rows[i].Cells["OutQty"].Value.ToString().Trim();
+                            string outAmt = DgvOut.Rows[i].Cells["OutAmt"].Value.ToString().Trim();
+
+                            // 累加總金額
+                            mOutTotAmt = mOutTotAmt + decimal.Parse(outAmt);
+
+                            // 1. 新增出貨單身（OutputDetailTbl）
+                            string strSQL = "INSERT INTO OutputDetailTbl (chOutpDateTime, chFactNo, chProdNo, rlOutpPrice, rlQty, rlOutpAmt) " +
+                                           "VALUES ('" + outDateTime + "', '" + factNo + "', '" + prodNo + "', " +
+                                           outPrice + ", " + outQty + ", " + outAmt + ")";
+
+                            sqlCmd.CommandText = strSQL;
+                            sqlCmd.ExecuteNonQuery();
+
+                            // 2. 更新商品庫存主檔的庫存數量（減少庫存）
+                            strSQL = "UPDATE ProductTbl SET rlStockQty = rlStockQty - " + outQty +
+                                     " WHERE chProdNo = '" + prodNo + "'";
+
+                            sqlCmd.CommandText = strSQL;
+                            sqlCmd.ExecuteNonQuery();
+                        }
+
+                        // 3. 新增出貨單頭（OutputHeadTbl）
+                        string insertHeadSQL = "INSERT INTO OutputHeadTbl (chOutpDateTime, chFactNo, rlOutpTotAmt) " +
+                                              "VALUES ('" + outDateTime + "', '" + factNo + "', " + Convert.ToString(mOutTotAmt) + ")";
+
+                        sqlCmd.CommandText = insertHeadSQL;
+                        sqlCmd.ExecuteNonQuery();
+
+                        // 確認交易
+                        myTransaction.Commit();
+                        // 顯示訊息
+                        MessageBox.Show("按任一鍵繼續!", "匯入成功!!");
+                        // 清除按鈕按下事件
+                        btnOutClear_Click(null, null);
+                        // 清除DataGridView中的資料
+                        DgvOut.Rows.Clear();
+                        // 清除出貨日期時間
+                        txtOutDateTime.Text = "";
+                    }
+                    catch (Exception ex)
+                    {
+                        // 回滾交易
+                        myTransaction.Rollback();
+                        // 顯示例外錯誤訊息
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //外層的Exception 只為抓取connection Error; 其他的Error幾乎都在內層Exception的範圍內
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
