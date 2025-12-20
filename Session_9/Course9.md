@@ -406,6 +406,7 @@ txtOutQty_Leave 請同學練習實作
                     strSQL = "select rlStockQty from ProductTbl where chProdNo = '" + txtOutProdNo.Text.Trim() + "' ";
                     using (SqlCommand sqlCmd = new SqlCommand(strSQL, mySqlConn))
                     {
+                        // ExecuteScalar() 是把第一列第一欄的資料抓出來
                         decimal currentStock = Convert.ToDecimal(sqlCmd.ExecuteScalar());
                         decimal outQty = decimal.Parse(txtOutQty.Text.Trim());
 
@@ -421,7 +422,9 @@ txtOutQty_Leave 請同學練習實作
                         }
                     }
 
-                    DgvOut.Rows.Add(txtOutProdNo.Text.Trim(), txtOutProdName.Text.Trim(), txtOutPrice.Text.Trim(), txtOutQty.Text.Trim(), lblOutAmt.Text.Trim(), txtOutUnit.Text.Trim());
+                    // ---------------------------------------------------------------------------
+					// 此處請同學實作新增資料至DataGridView
+					// ---------------------------------------------------------------------------
                     if (txtOutDateTime.Text.Trim() == "")
                     {
                         string tmpDate = GetDateToDate13();
