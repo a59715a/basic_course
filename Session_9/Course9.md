@@ -9,7 +9,6 @@
 - ✅ 了解 SQL JOIN 的種類與用法
 - ✅ 深入理解 LEFT JOIN 的撰寫方式與結果
 - ✅ 學會使用欄位別名（Alias）
-- ✅ 學會使用 DataGridView 的 DataSource 屬性綁定 DataTable
 - ✅ 完成進貨明細報表功能
 - ✅ 完成出貨明細報表作業
 
