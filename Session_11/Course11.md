@@ -716,12 +716,12 @@ ORDER BY SUBSTRING(IH.chInpDateTime, 1, 7), F.chFactName
 
 **與簡單範例的差異：**
 
-| 項目     | 簡單範例（4.4、4.5）      | 完整月報範例（4.6）       |
-| -------- | ------------------------- | ------------------------- |
+| 項目     | 簡單範例（4.4、4.5）    | 完整月報範例（4.6）       |
+| -------- | ----------------------- | ------------------------- |
 | 資料表   | 只使用 `InputDetailTbl` | 使用 JOIN 關聯多個資料表  |
-| 廠商資訊 | 顯示廠商代號              | 顯示廠商名稱              |
-| 日期篩選 | 無 WHERE 子句             | 有 WHERE 子句篩選日期範圍 |
-| 排序     | 無 ORDER BY               | 有 ORDER BY 排序          |
+| 廠商資訊 | 顯示廠商代號            | 顯示廠商名稱              |
+| 日期篩選 | 無 WHERE 子句           | 有 WHERE 子句篩選日期範圍 |
+| 排序     | 無 ORDER BY             | 有 ORDER BY 排序          |
 
 #### 4.7 練習：寫出完整的出貨月報查詢
 
@@ -798,7 +798,7 @@ dgv.DataSource = dt;
 
 將第 7 堂課（`Session_7_AddressBook_Complete`）的通訊錄維護系統整合到庫存管理系統的「基本資料維護」分頁（`tabPage5`）中，完成本課程的最終成果。
 
-![1764430331547](https://file+.vscode-resource.vscode-cdn.net/f%3A/GitHub/basic_course/Session_7_AddressBook_Complete/image/Course7/1764430331547.png)
+![1766854145724](image/Course11/1766854145724.png)
 
 ![1766852902306](image/Course11/1766852902306.png)
 
